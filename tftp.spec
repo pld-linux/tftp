@@ -30,7 +30,7 @@ nécessaire.
 
 %description -l pl
 Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do
-startowania stacji bezdyskowych z sieci. Pakiet ten zawira aplikacjê
+startowania stacji bezdyskowych z sieci. Pakiet ten zawiera aplikacjê
 tftp klienta.
 
 %description -l tr
