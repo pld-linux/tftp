@@ -48,25 +48,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(700,root,root) %{_sbindir}/*
 %{_mandir}/man[18]/*
-
-%changelog
-* Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.10-5]
-- fixed passing $RPM_OPT_FLAGS (tftp-0.10-misc.patch).
-
-* Sun Nov 08 1998 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
-- added pl translation,
-- removed all others translation -> SIGSEGV (why ? we jet don't known),
-- major changes -> required for Linux PLD.
-
-* Fri Aug  7 1998 Jeff Johnson <jbj@redhat.com>
-- build root
-
-* Mon Apr 27 1998 Prospector System <bugs@redhat.com>
-- translations modified for de, fr, tr
-
-* Mon Sep 22 1997 Erik Troan <ewt@redhat.com>
-- added check for getpwnam() failure
-
-* Tue Jul 15 1997 Erik Troan <ewt@redhat.com>
-- initial build
