@@ -83,8 +83,10 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 %patch -p1 
 
 %build
-CFLAGS="%{rpmcflags}" ; export CFLAGS
-./configure --with-c-compiler=gcc
+export CFLAGS="%{rpmcflags}"
+
+./configure \
+	--with-c-compiler=gcc
 %{__make}
 
 %install
