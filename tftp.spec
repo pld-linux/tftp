@@ -2,7 +2,7 @@ Summary:	Client for the Trivial File Transfer Protocol (TFTP)
 Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Name:		tftp
 Version:	0.16
-Release:	3
+Release:	4
 Copyright:	BSD
 Group:		Applicatins/Networking
 Group(pl):	Aplikacje/Sieciowe
