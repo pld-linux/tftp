@@ -2,10 +2,10 @@ Summary:	Client for the Trivial File Transfer Protocol (TFTP)
 Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Name:		tftp
 Version:	0.16
-Release:	2
+Release:	3
 Copyright:	BSD
-Group:		Networking/Daemons
-Group(pl):	Sieciowe/Serwery
+Group:		Applicatins/Networking
+Group(pl):	Aplikacje/Sieciowe
 Source:		ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{name}-%{version}.tar.gz
 Source1:	tftpd.inetd
 Patch:		tftp-configure.patch
@@ -25,6 +25,7 @@ Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Group:		Networking/Daemons
 Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
+Obsoletes:	tftp-server
 
 %description -n tftpd
 The Trivial File Transfer Protocol (TFTP) is normally used only for booting
