@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	16
+Release:	17
 License:	BSD
 Group:		Applications/Networking
 Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{version}.tar.gz
@@ -45,8 +45,11 @@ Summary(fr):	Démon pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Group:		Networking/Daemons
+PreReq:		rc-inetd >= 0.8.1
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/userdel
 Requires:	inetdaemon
-Prereq:		rc-inetd >= 0.8.1
 Provides:	tftpdaemon
 Obsoletes:	tftp-server, utftpd
 
@@ -79,7 +82,7 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 %patch0 -p1
 
 %build
-export CFLAGS="%{rpmcflags}"
+CFLAGS="%{rpmcflags}"; export CFLAGS
 
 ./configure \
 	--with-c-compiler=gcc
@@ -99,16 +102,17 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/tftpd
 mv -f $RPM_BUILD_ROOT%{_sbindir}/in.tftpd $RPM_BUILD_ROOT%{_sbindir}/tftpd
 mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/tftpd.8
 
-gzip -9nf README
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %pre -n tftpd
 if [ -n "`id -u tftp 2>/dev/null`" ]; then
-        if [ "`id -u tftp`" != "15" ]; then
-		echo "Warning: user tftp haven't uid=15. Correct this before installing tftpd" 1>&2
+	if [ "`id -u tftp`" != "15" ]; then
+		echo "Error: user tftp doesn't have uid=15. Correct this before installing tftpd." 1>&2
 		exit 1
 	fi
 else
-        echo "Adding user tftp UID=15"
+	echo "Adding user tftp UID=15."
 	/usr/sbin/useradd -u 15 -r -d /var/lib/tftp -s /bin/false -c "TFTP User" -g ftp tftp 1>&2
 fi
 
@@ -116,7 +120,7 @@ fi
 if [ -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload 1>&2
 else
-	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet server" 1>&2
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet server." 1>&2
 fi
 
 %postun -n tftpd
@@ -124,16 +128,13 @@ if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload
 fi
 if [ "$1" = "0" ]; then
-        echo "Removing user tftp UID=15"
+        echo "Removing user tftp."
 	/usr/sbin/userdel tftp
 fi
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
-%doc README.gz
+%doc README
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/*
 
