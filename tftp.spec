@@ -9,7 +9,7 @@ Source:      ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit
 Patch:       %{name}-%{version}-misc.patch
 Patch1:      %{name}-%{version}-security.patch
 Requires:    inetd
-BuildRoot:   /tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 The trivial file transfer protocol (tftp) is normally used only for 
