@@ -1,25 +1,23 @@
-Summary:	Client for the trivial file transfer protocol (tftp)
-Summary(pl):	Klient tftp (trivial file transfer protocol)
+Summary:	Client for the Trivial File Transfer Protocol (TFTP)
+Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Name:		tftp
 Version:	0.16
-Release:	1
+Release:	2
 Copyright:	BSD
-Group:		Networking
+Group:		Networking/Daemons
+Group(pl):	Sieciowe/Serwery
 Source:		ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{name}-%{version}.tar.gz
 Source1:	tftpd.inetd
-Patch:		%{name}-0.15-configure.patch
+Patch:		tftp-configure.patch
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
-The trivial file transfer protocol (tftp) is normally used only for 
-booting diskless workstations. It provides very little security, and
-should not be enabled unless it is needed. The tftp server is run from
-/etc/inetd.conf, and is disabled by default on Red Hat systems.
+The Trivial File Transfer Protocol (TFTP) is normally used only for 
+booting diskless workstations. This package contains tftp client.
 
 %description -l pl
 Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do startowania
-stacji bezdyskowych z sieci. Demon powinien byæ uruchamiany tylko wtedy, 
-kiedy zachodzi taka konieczno¶æ. Tftpd jest uruchamiany przez inetd.
+stacji bezdyskowych z sieci. Pakiet ten zawira aplikacjê tftp klienta.
 
 %package -n tftpd
 Summary:	Daemon for the trivial file transfer protocol (tftp)
@@ -29,16 +27,17 @@ Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
 
 %description -n tftpd
-The trivial file transfer protocol (tftp) is normally used only for 
-booting diskless workstations. It provides very little security, and
-should not be enabled unless it is needed. The tftp server is run from
-inetd.
+The Trivial File Transfer Protocol (TFTP) is normally used only for booting
+diskless workstations. The tftp package provides the user interface for
+TFTP, which allows users to transfer files to and from a remote machine. It
+provides very little security, and should not be enabled unless it is
+needed.
 
 %description -n tftpd -l pl
-Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do startowania
-stacji bezdyskowych z sieci. Demon powinien byæ uruchamiany tylko wtedy, 
-kiedy zachodzi taka konieczno¶æ. Tftpd jest uruchamiany przez inetd.
-
+TFTP (Trivial File Transfer Protocol) jest u¿ywany g³ównie do startowania
+stacji bezdyskowych z sieci. Serwer tftp powinien byæ instalowany tylko
+wtedy, kiedy zachodzi taka konieczno¶æ poniewa¿ nale¿y on do aplikacji o
+niskim poziomie bezpieczeñstwa.
 
 %prep
 %setup -q -n netkit-%{name}-%{version}
@@ -53,7 +52,8 @@ make
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{%{_bindir},/etc/sysconfig/rc-inetd,%{_sbindir},%{_mandir}/man{1,8},var/state/tftp}
 
-make install INSTALLROOT=$RPM_BUILD_ROOT \
+make install \
+	INSTALLROOT=$RPM_BUILD_ROOT \
 	MANDIR=%{_mandir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/tftpd
