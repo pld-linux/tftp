@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	15
+Release:	16
 License:	BSD
 Group:		Applications/Networking
 Group(de):	Applikationen/Netzwerkwesen
@@ -106,6 +106,17 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/t
 
 gzip -9nf README
 
+%pre -n tftpd
+if [ -n "`id -u tftp 2>/dev/null`" ]; then
+        if [ "`id -u tftp`" != "15" ]; then
+		echo "Warning: user tftp haven't uid=15. Correct this before installing tftpd" 1>&2
+		exit 1
+	fi
+else
+        echo "Adding user tftp UID=15"
+	/usr/sbin/useradd -u 15 -r -d /var/lib/tftp -s /bin/false -c "TFTP User" -g ftp tftp 1>&2
+fi
+
 %post -n tftpd
 if [ -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload 1>&2
@@ -116,6 +127,10 @@ fi
 %postun -n tftpd
 if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload
+fi
+if [ "$1" = "0" ]; then
+        echo "Removing user tftp UID=15"
+        /usr/sbin/userdel tftp
 fi
 
 %clean
@@ -131,5 +146,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,root) %config %verify(not size mtime md5) /etc/sysconfig/rc-inetd/tftpd
-%attr(750,root,nobody) %dir /var/lib/tftp
+%attr(750,tftp,root) %dir /var/lib/tftp
 %{_mandir}/man8/*
