@@ -50,11 +50,10 @@ PreReq:		rc-inetd >= 0.8.1
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/userdel
-Requires:	inetdaemon
 Provides:	tftpdaemon
+Obsoletes:	tftpd-hpa
 Obsoletes:	tftp-server
 Obsoletes:	utftpd
-Obsoletes:	tftpd-hpa
 
 %description -n tftpd
 The Trivial File Transfer Protocol (TFTP) is normally used only for
@@ -131,7 +130,7 @@ if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload
 fi
 if [ "$1" = "0" ]; then
-        echo "Removing user tftp."
+	echo "Removing user tftp."
 	/usr/sbin/userdel tftp
 fi
 
