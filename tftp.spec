@@ -10,6 +10,7 @@ Source1:	tftpd.inetd
 Patch:		%{name}-%{version}-misc.patch
 Patch1:		%{name}-%{version}-security.patch
 Requires:	inetdaemon
+Requires:	rc-inetd
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
