@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	7
+Release:	15
 License:	BSD
 Group:		Applications/Networking
 Group(de):	Applikationen/Netzwerkwesen
@@ -81,7 +81,7 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 
 %prep
 %setup -q -n netkit-%{name}-%{version}
-%patch -p1 
+%patch0 -p1 
 
 %build
 export CFLAGS="%{rpmcflags}"
