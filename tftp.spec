@@ -12,6 +12,7 @@ Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{ver
 # Source0-md5:	b7262c798e2ff50e29c2ff50dfd8d6a8
 Source1:	%{name}d.inetd
 Patch0:		%{name}-configure.patch
+BuildRequires:	rpmbuild(macros) >= 1.159
 Obsoletes:	tftp-hpa
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -52,6 +53,7 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/userdel
 Provides:	tftpdaemon
+Provides:	user(tftp)
 Obsoletes:	atftpd
 Obsoletes:	tftpd-hpa
 Obsoletes:	tftp-server
@@ -132,8 +134,7 @@ if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload
 fi
 if [ "$1" = "0" ]; then
-	echo "Removing user tftp."
-	/usr/sbin/userdel tftp
+	%userremove tftp
 fi
 
 %files
