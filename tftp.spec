@@ -12,7 +12,7 @@ Group(pl):	Aplikacje/Sieciowe
 Source0:	ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{name}-%{version}.tar.gz
 Source1:	tftpd.inetd
 Patch0:		tftp-configure.patch
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The Trivial File Transfer Protocol (TFTP) is normally used only for
