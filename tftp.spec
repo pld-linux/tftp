@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	20
+Release:	21
 License:	BSD
 Group:		Applications/Networking
 Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{version}.tar.gz
@@ -54,6 +54,7 @@ Requires:	inetdaemon
 Provides:	tftpdaemon
 Obsoletes:	tftp-server
 Obsoletes:	utftpd
+Obsoletes:	tftpd-hpa
 
 %description -n tftpd
 The Trivial File Transfer Protocol (TFTP) is normally used only for
