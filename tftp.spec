@@ -1,14 +1,13 @@
 Summary:	Client for the trivial file transfer protocol (tftp)
 Summary(pl):	Klient tftp (trivial file transfer protocol)
 Name:		tftp
-Version:	0.10
-Release:	5
+Version:	0.16
+Release:	1
 Copyright:	BSD
 Group:		Networking
 Source:		ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{name}-%{version}.tar.gz
 Source1:	tftpd.inetd
-Patch:		%{name}-%{version}-misc.patch
-Patch1:		%{name}-%{version}-security.patch
+Patch:		%{name}-0.15-configure.patch
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -27,7 +26,7 @@ Summary:	Daemon for the trivial file transfer protocol (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Group:		Networking/Daemons
 Requires:	inetdaemon
-Requires:	rc-inetd
+Prereq:		rc-inetd >= 0.8.1
 
 %description -n tftpd
 The trivial file transfer protocol (tftp) is normally used only for 
@@ -44,14 +43,15 @@ kiedy zachodzi taka konieczno¶æ. Tftpd jest uruchamiany przez inetd.
 %prep
 %setup -q -n netkit-%{name}-%{version}
 %patch -p1 
-%patch1 -p1 
+#%patch1 -p1 
 
 %build
+CFLAGS="$RPM_OPT_FLAGS" sh configure
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_bindir},/etc/sysconfig/rc-inetd,%{_sbindir},%{_mandir}/man{1,8}}
+install -d $RPM_BUILD_ROOT/{%{_bindir},/etc/sysconfig/rc-inetd,%{_sbindir},%{_mandir}/man{1,8},var/state/tftp}
 
 make install INSTALLROOT=$RPM_BUILD_ROOT \
 	MANDIR=%{_mandir}
@@ -65,14 +65,14 @@ gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man*/*
 
 %post -n tftpd
 if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd restart 1>&2
+	/etc/rc.d/init.d/rc-inetd reload 1>&2
 else
 	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet sever" 1>&2
 fi
 
 %postun -n tftpd
-if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd restart
+if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd reload
 fi
 
 %clean
@@ -87,4 +87,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tftpd
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,root) /etc/sysconfig/rc-inetd/tftpd
+%attr(750,nobody,nobody) %dir /var/state/tftp
 %{_mandir}/man8/*
