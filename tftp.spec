@@ -9,6 +9,7 @@ Release:	21
 License:	BSD
 Group:		Applications/Networking
 Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{version}.tar.gz
+# Source0-md5:	b7262c798e2ff50e29c2ff50dfd8d6a8
 Source1:	%{name}d.inetd
 Patch0:		%{name}-configure.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
