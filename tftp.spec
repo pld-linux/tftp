@@ -43,10 +43,10 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT/usr/man/man8/tft
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(644, root, root, 755)
+%defattr(644,root,root,755)
 %doc README
-%attr(755, root, root) %{_bindir}/*
-%attr(700, root, root) %{_sbindir}/*
+%attr(755,root,root) %{_bindir}/*
+%attr(700,root,root) %{_sbindir}/*
 %{_mandir}/man[18]/*
 
 %changelog
