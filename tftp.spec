@@ -7,7 +7,7 @@ Name:		tftp
 Version:	0.16
 Release:	6
 License:	BSD
-Group:		Applicatins/Networking
+Group:		Applications/Networking
 Group(pl):	Aplikacje/Sieciowe
 Source0:	ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{name}-%{version}.tar.gz
 Source1:	tftpd.inetd
