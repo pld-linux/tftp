@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.16
-Release:	8
+Release:	9
 License:	BSD
 Group:		Applications/Networking
 Group(pl):	Aplikacje/Sieciowe
@@ -77,7 +77,6 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 %prep
 %setup -q -n netkit-%{name}-%{version}
 %patch -p1 
-#%patch1 -p1 
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" sh configure
@@ -122,7 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tftpd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,root) %config %verify(not size mtime md5) 
-%attr(640,root,root) /etc/sysconfig/rc-inetd/tftpd
+%attr(640,root,root) %config %verify(not size mtime md5) /etc/sysconfig/rc-inetd/tftpd
 %attr(750,nobody,nobody) %dir /var/lib/tftp
 %{_mandir}/man8/*
