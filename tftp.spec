@@ -1,5 +1,8 @@
 Summary:	Client for the Trivial File Transfer Protocol (TFTP)
+Summary(de):	Client für das 'trivial file transfer protocol (tftp)'
+Summary(fr):	Client pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
+Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.16
 Release:	4
@@ -15,13 +18,31 @@ BuildRoot:	/tmp/%{name}-%{version}-root
 The Trivial File Transfer Protocol (TFTP) is normally used only for 
 booting diskless workstations. This package contains tftp client.
 
+%description -l de
+Das trivial file transfer protocol (tftp) wird in der Regel nur zum Booten
+von disklosen Workstations benutzt. Es bietet nur geringe Sicherheit und
+sollte nur im Bedarfsfall aktiviert werden.
+
+%description -l fr
+Le « trivial file transfer protocol » (tftp) est normalement utilisé
+uniquement pour démarrer les stations de travail sans disque. Il offre très
+peu de sécurité et ne devrait pas être activé sauf si c'est nécessaire.
+
 %description -l pl
 Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do startowania
 stacji bezdyskowych z sieci. Pakiet ten zawira aplikacjê tftp klienta.
 
+%description -l tr
+Ýlkel dosya aktarým protokolu genelde disksiz iþ istasyonlarýnýn að
+üzerinden açýlmalarýnda kullanýlýr. Güvenlik denetimleri çok az olduðundan
+zorunlu kalmadýkça çalýþtýrýlmamalýdýr.
+
 %package -n tftpd
 Summary:	Daemon for the trivial file transfer protocol (tftp)
+Summary(de):	Dämon für das 'trivial file transfer protocol (tftp)'
+Summary(fr):	Démon pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
+Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Group:		Networking/Daemons
 Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
@@ -33,6 +54,16 @@ diskless workstations. The tftp package provides the user interface for
 TFTP, which allows users to transfer files to and from a remote machine. It
 provides very little security, and should not be enabled unless it is
 needed.
+
+%description -l de -n tftpd
+Das trivial file transfer protocol (tftp) wird in der Regel nur zum Booten
+von disklosen Workstations benutzt. Es bietet nur geringe Sicherheit und
+sollte nur im Bedarfsfall aktiviert werden.
+
+%description -l fr -n tftpd
+Le « trivial file transfer protocol » (tftp) est normalement utilisé
+uniquement pour démarrer les stations de travail sans disque. Il offre très
+peu de sécurité et ne devrait pas être activé sauf si c'est nécessaire.
 
 %description -n tftpd -l pl
 TFTP (Trivial File Transfer Protocol) jest u¿ywany g³ównie do startowania
