@@ -51,6 +51,7 @@ Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
+Provides:	tftpdaemon
 Obsoletes:	tftp-server
 
 %description -n tftpd
