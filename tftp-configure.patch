@@ -1,0 +1,47 @@
+--- netkit-tftp-0.15/configure.old	Sun Aug  1 07:12:09 1999
++++ netkit-tftp-0.15/configure	Tue Dec 28 22:36:17 1999
+@@ -115,25 +115,26 @@
+ fi
+ 
+ if [ x$DEBUG = x ]; then
+-    echo -n "Checking if $CC accepts -O2... "
+-    if (
+-         $CC -O2 __conftest.c -o __conftest
+-       ) >/dev/null 2>&1; then
+-         echo 'yes'
+-         CFLAGS="$CFLAGS -O2"
+-    else
+-         echo 'no'
+-         echo -n "Checking if $CC accepts -O... "
+-         if (
+-              $CC -O __conftest.c -o __conftest
+-            ) >/dev/null 2>&1; then
+-              echo 'yes'
+-              CFLAGS="$CFLAGS -O"
+-         else
+-              echo 'no'
+-         fi
++    if [ "$CFLAGS" = "" ]; then
++        echo -n "Checking if $CC accepts -O2... "
++	if (
++    	     $CC -O2 __conftest.c -o __conftest
++           ) >/dev/null 2>&1; then
++             echo 'yes'
++             CFLAGS="$CFLAGS -O2"
++        else
++	     echo 'no'
++    	     echo -n "Checking if $CC accepts -O... "
++             if (
++	          $CC -O __conftest.c -o __conftest
++    	        ) >/dev/null 2>&1; then
++        	  echo 'yes'
++                  CFLAGS="$CFLAGS -O"
++	     else
++    	          echo 'no'
++             fi
++	fi
+     fi
+-
+ else
+     echo -n "Checking if $CC accepts -g... "
+     if (
