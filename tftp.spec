@@ -37,7 +37,7 @@ install -d $RPM_BUILD_ROOT/usr/{bin,sbin,man/man1,man/man8}
 make INSTALLROOT=$RPM_BUILD_ROOT install
 
 mv -f $RPM_BUILD_ROOT/usr/sbin/in.tftpd $RPM_BUILD_ROOT/usr/sbin/tftpd
-mv -f $RPM_BUILD_ROOT/usr/man/man8/in.tftpd.8 $RPM_BUILD_ROOT/usr/man/man8/tftpd.8
+mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT/usr/man/man8/tftpd.8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 %attr(755, root, root) /usr/bin/*
 %attr(700, root, root) /usr/sbin/*
-%attr(644, root,  man) /usr/man/man[18]/*
+%attr(644, root,  man) %{_mandir}/man[18]/*
 
 %changelog
 * Thu Nov 12 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
