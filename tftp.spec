@@ -78,7 +78,7 @@ niskim poziomie bezpieczeñstwa.
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" sh configure
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
