@@ -5,13 +5,14 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	1
+Release:	6
 License:	BSD
 Group:		Applications/Networking
+Group(de):	Applikationen/Netzwerkwesen
 Group(pl):	Aplikacje/Sieciowe
 Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{version}.tar.gz
-Source1:	tftpd.inetd
-Patch0:		tftp-configure.patch
+Source1:	%{name}d.inetd
+Patch0:		%{name}-configure.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,6 +47,8 @@ Summary(fr):	Démon pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Group:		Networking/Daemons
+Group(de):	Netzwerkwesen/Server
+Group(pl):	Sieciowe/Serwery
 Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
 Obsoletes:	tftp-server
@@ -96,7 +99,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/tftpd
 mv -f $RPM_BUILD_ROOT%{_sbindir}/in.tftpd $RPM_BUILD_ROOT%{_sbindir}/tftpd
 mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/tftpd.8
 
-gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man*/*
+gzip -9nf README
 
 %post -n tftpd
 if [ -f /var/lock/subsys/rc-inetd ]; then
