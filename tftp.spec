@@ -90,7 +90,7 @@ CFLAGS="%{rpmcflags}" ; export CFLAGS
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{%{_bindir},%{_sbindir},/etc/sysconfig/rc-inetd} \
-	$RPM_BUILD_ROOT%{%{_mandir}/man{1,8},/var/lib/tftp}
+	$RPM_BUILD_ROOT{%{_mandir}/man{1,8},/var/lib/tftp}
 
 %{__make} install \
 	INSTALLROOT=$RPM_BUILD_ROOT \
