@@ -32,19 +32,22 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/{bin,sbin,man/man1,man/man8}
+install -d $RPM_BUILD_ROOT/{%{_bindir},%{_sbindir},%{_mandir}/man{1,8}}
 
-make INSTALLROOT=$RPM_BUILD_ROOT install
+make install INSTALLROOT=$RPM_BUILD_ROOT \
+	MANDIR=%{_mandir}
 
 mv -f $RPM_BUILD_ROOT%{_sbindir}/in.tftpd $RPM_BUILD_ROOT/usr/sbin/tftpd
-mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT/usr/man/man8/tftpd.8
+mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/tftpd.8
+
+gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man*/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc README.gz
 %attr(755,root,root) %{_bindir}/*
 %attr(700,root,root) %{_sbindir}/*
 %{_mandir}/man[18]/*
