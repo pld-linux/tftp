@@ -84,7 +84,7 @@ make
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{%{_bindir},/etc/sysconfig/rc-inetd,%{_sbindir},%{_mandir}/man{1,8},var/lib/tftp}
 
-make install \
+%{__make} install \
 	INSTALLROOT=$RPM_BUILD_ROOT \
 	MANDIR=%{_mandir}
 
