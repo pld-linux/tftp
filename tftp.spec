@@ -143,6 +143,6 @@ fi
 %files -n tftpd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,root) %config %verify(not size mtime md5) /etc/sysconfig/rc-inetd/tftpd
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/rc-inetd/tftpd
 %attr(750,tftp,root) %dir /var/lib/tftp
 %{_mandir}/man8/*
