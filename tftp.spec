@@ -8,8 +8,6 @@ Version:	0.17
 Release:	16
 License:	BSD
 Group:		Applications/Networking
-Group(de):	Applikationen/Netzwerkwesen
-Group(pl):	Aplikacje/Sieciowe
 Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{version}.tar.gz
 Source1:	%{name}d.inetd
 Patch0:		%{name}-configure.patch
@@ -47,8 +45,6 @@ Summary(fr):	Démon pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Requires:	inetdaemon
 Prereq:		rc-inetd >= 0.8.1
 Provides:	tftpdaemon
