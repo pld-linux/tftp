@@ -45,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644, root, root, 755)
 %doc README
-%attr(755, root, root) /usr/bin/*
+%attr(755, root, root) %{_bindir}/*
 %attr(700, root, root) /usr/sbin/*
 %{_mandir}/man[18]/*
 
