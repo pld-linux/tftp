@@ -1,5 +1,5 @@
-Summary:	Client and daemon for the trivial file transfer protocol (tftp)
-Summary(pl):	Klient i demon tftp (trivial file transfer protocol)
+Summary:	Client for the trivial file transfer protocol (tftp)
+Summary(pl):	Klient tftp (trivial file transfer protocol)
 Name:		tftp
 Version:	0.10
 Release:	5
@@ -9,8 +9,6 @@ Source:		ftp://sunsite.unc.edu/pub/Linux/system/network/file-transfer/netkit-%{n
 Source1:	tftpd.inetd
 Patch:		%{name}-%{version}-misc.patch
 Patch1:		%{name}-%{version}-security.patch
-Requires:	inetdaemon
-Requires:	rc-inetd
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -23,6 +21,25 @@ should not be enabled unless it is needed. The tftp server is run from
 Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do startowania
 stacji bezdyskowych z sieci. Demon powinien byæ uruchamiany tylko wtedy, 
 kiedy zachodzi taka konieczno¶æ. Tftpd jest uruchamiany przez inetd.
+
+%package -n tftpd
+Summary:	Daemon for the trivial file transfer protocol (tftp)
+Summary(pl):	Serwer tftp (trivial file transfer protocol)
+Group:		Networking/Daemons
+Requires:	inetdaemon
+Requires:	rc-inetd
+
+%description -n tftpd
+The trivial file transfer protocol (tftp) is normally used only for 
+booting diskless workstations. It provides very little security, and
+should not be enabled unless it is needed. The tftp server is run from
+inetd.
+
+%description -n tftpd -l pl
+Tftp (trivial file transfer protocol) jest u¿ywany g³ównie do startowania
+stacji bezdyskowych z sieci. Demon powinien byæ uruchamiany tylko wtedy, 
+kiedy zachodzi taka konieczno¶æ. Tftpd jest uruchamiany przez inetd.
+
 
 %prep
 %setup -q -n netkit-%{name}-%{version}
@@ -46,6 +63,18 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/t
 
 gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man*/*
 
+%post -n tftpd
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd restart 1>&2
+else
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet sever" 1>&2
+fi
+
+%postun -n tftpd
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd restart
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -53,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.gz
 %attr(755,root,root) %{_bindir}/*
-%attr(700,root,root) %{_sbindir}/*
+%{_mandir}/man1/*
+
+%files -n tftpd
+%attr(755,root,root) %{_sbindir}/*
 %attr(640,root,root) /etc/sysconfig/rc-inetd/tftpd
-%{_mandir}/man[18]/*
+%{_mandir}/man8/*
