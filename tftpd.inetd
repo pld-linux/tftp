@@ -6,4 +6,4 @@ FLAGS=wait
 USER=nobody
 SERVER=tcpd
 DAEMON=/usr/sbin/tftpd
-DAEMONARGS="/var/state/tftp"
+DAEMONARGS="/var/lib/tftp"
