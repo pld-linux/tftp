@@ -5,7 +5,7 @@ Summary(pl):	Klient TFTP (Trivial File Transfer Protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Name:		tftp
 Version:	0.17
-Release:	0
+Release:	1
 License:	BSD
 Group:		Applications/Networking
 Group(pl):	Aplikacje/Sieciowe
@@ -79,7 +79,8 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 %patch -p1 
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" sh configure
+CFLAGS="$RPM_OPT_FLAGS" ; export CFLAGS
+./configure --with-c-compiler=gcc
 %{__make}
 
 %install
