@@ -57,12 +57,12 @@ interface for TFTP, which allows users to transfer files to and from a
 remote machine. It provides very little security, and should not be
 enabled unless it is needed.
 
-%description -l de -n tftpd
+%description -n tftpd -l de
 Das trivial file transfer protocol (tftp) wird in der Regel nur zum
 Booten von disklosen Workstations benutzt. Es bietet nur geringe
 Sicherheit und sollte nur im Bedarfsfall aktiviert werden.
 
-%description -l fr -n tftpd
+%description -n tftpd -l fr
 Le « trivial file transfer protocol » (tftp) est normalement utilisé
 uniquement pour démarrer les stations de travail sans disque. Il offre
 très peu de sécurité et ne devrait pas être activé sauf si c'est
@@ -76,7 +76,7 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 
 %prep
 %setup -q -n netkit-%{name}-%{version}
-%patch0 -p1 
+%patch0 -p1
 
 %build
 export CFLAGS="%{rpmcflags}"
@@ -125,7 +125,7 @@ if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
 fi
 if [ "$1" = "0" ]; then
         echo "Removing user tftp UID=15"
-        /usr/sbin/userdel tftp
+	/usr/sbin/userdel tftp
 fi
 
 %clean
