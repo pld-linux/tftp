@@ -1,0 +1,8 @@
+SERVICE_NAME=tftp
+SOCK_TYPE=dgram
+PROTOCOL=udp
+FLAGS=wait
+USER=root
+SERVER=tcpd
+DAEMON=/usr/sbin/tftpd
+DAEMON="-C /var/state/tftp"
