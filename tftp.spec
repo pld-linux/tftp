@@ -83,13 +83,14 @@ nale¿y on do aplikacji o niskim poziomie bezpieczeñstwa.
 %patch -p1 
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ; export CFLAGS
+CFLAGS="%{rpmcflags}" ; export CFLAGS
 ./configure --with-c-compiler=gcc
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_bindir},/etc/sysconfig/rc-inetd,%{_sbindir},%{_mandir}/man{1,8},var/lib/tftp}
+install -d $RPM_BUILD_ROOT/{%{_bindir},%{_sbindir},/etc/sysconfig/rc-inetd} \
+	$RPM_BUILD_ROOT%{%{_mandir}/man{1,8},/var/lib/tftp}
 
 %{__make} install \
 	INSTALLROOT=$RPM_BUILD_ROOT \
