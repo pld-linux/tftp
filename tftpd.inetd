@@ -1,6 +1,7 @@
 SERVICE_NAME=tftp
 SOCK_TYPE=dgram
 PROTOCOL=udp
+PORT=69
 FLAGS=wait
 USER=root
 SERVER=tcpd
