@@ -12,7 +12,7 @@ Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{ver
 # Source0-md5:	b7262c798e2ff50e29c2ff50dfd8d6a8
 Source1:	%{name}d.inetd
 Patch0:		%{name}-configure.patch
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 Obsoletes:	inetutils-tftp
 Obsoletes:	tftp-hpa
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -114,15 +114,7 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man8/in.tftpd.8 $RPM_BUILD_ROOT%{_mandir}/man8/t
 rm -rf $RPM_BUILD_ROOT
 
 %pre -n tftpd
-if [ -n "`id -u tftp 2>/dev/null`" ]; then
-	if [ "`id -u tftp`" != "15" ]; then
-		echo "Error: user tftp doesn't have uid=15. Correct this before installing tftpd." 1>&2
-		exit 1
-	fi
-else
-	echo "Adding user tftp UID=15."
-	/usr/sbin/useradd -u 15 -r -d /var/lib/tftp -s /bin/false -c "TFTP User" -g ftp tftp 1>&2
-fi
+%useradd -P tftpd -u 15 -r -d /var/lib/tftp -s /bin/false -c "TFTP User" -g ftp tftp
 
 %post -n tftpd
 if [ -f /var/lock/subsys/rc-inetd ]; then
@@ -132,10 +124,10 @@ else
 fi
 
 %postun -n tftpd
-if [ "$1" = "0" -a -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd reload
-fi
 if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/rc-inetd ]; then
+		/etc/rc.d/init.d/rc-inetd reload
+	fi
 	%userremove tftp
 fi
 
