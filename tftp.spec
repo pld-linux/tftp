@@ -49,10 +49,10 @@ Summary(fr):	Démon pour le « trivial file transfer protocol » (tftp)
 Summary(pl):	Serwer tftp (trivial file transfer protocol)
 Summary(tr):	Ýlkel dosya aktarým protokolu (TFTP) için sunucu ve istemci
 Group:		Networking/Daemons
-PreReq:		rc-inetd >= 0.8.1
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
+Requires:	rc-inetd >= 0.8.1
 Provides:	tftpdaemon
 Provides:	user(tftp)
 Obsoletes:	atftpd
@@ -140,6 +140,6 @@ fi
 %files -n tftpd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/rc-inetd/tftpd
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/tftpd
 %attr(750,tftp,root) %dir /var/lib/tftp
 %{_mandir}/man8/*
