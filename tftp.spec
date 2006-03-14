@@ -12,7 +12,7 @@ Source0:	ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-%{name}-%{ver
 # Source0-md5:	b7262c798e2ff50e29c2ff50dfd8d6a8
 Source1:	%{name}d.inetd
 Patch0:		%{name}-configure.patch
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.268
 Obsoletes:	inetutils-tftp
 Obsoletes:	tftp-hpa
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,8 +57,8 @@ Provides:	tftpdaemon
 Provides:	user(tftp)
 Obsoletes:	atftpd
 Obsoletes:	inetutils-tftpd
-Obsoletes:	tftpd-hpa
 Obsoletes:	tftp-server
+Obsoletes:	tftpd-hpa
 Obsoletes:	utftpd
 
 %description -n tftpd
@@ -117,17 +117,11 @@ rm -rf $RPM_BUILD_ROOT
 %useradd -P tftpd -u 15 -r -d /var/lib/tftp -s /bin/false -c "TFTP User" -g ftp tftp
 
 %post -n tftpd
-if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd reload 1>&2
-else
-	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet server." 1>&2
-fi
+%service -q rc-inetd reload
 
 %postun -n tftpd
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/rc-inetd ]; then
-		/etc/rc.d/init.d/rc-inetd reload
-	fi
+	%service -q rc-inetd reload
 	%userremove tftp
 fi
 
