@@ -1,0 +1,3 @@
+- upgrade to 0.16
+- added using rc-inetd reload
+- configure doesn't overwrite CFLAGS (tftp-0.15-configure.patch)
